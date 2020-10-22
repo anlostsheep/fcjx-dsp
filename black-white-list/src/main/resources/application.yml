@@ -1,0 +1,84 @@
+server:
+  port: 18087
+
+  tomcat:
+    # 可以放到处理队列中的请求数
+    accept-count: 1000
+    # 超时时间（毫秒）
+    connection-timeout: 30000
+    # 接受和处理的最大连接数
+    max-connections: 20000
+
+spring:
+  application:
+    name: black-white-list
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 100
+          batch_versioned_data: true
+        order_inserts: true
+        order_updates: true
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 35
+      minimum-idle: 5
+
+  redis:
+    lettuce:
+      pool:
+        max-active: 35
+        max-wait: 10000
+        max-idle: 20
+        min-idle: 1
+      shutdown-timeout: 10000
+
+logging:
+  file:
+    max-size: 200MB
+    max-history: 30
+    total-size-cap: 10GB
+
+---
+
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://192.168.16.70:3306/dsp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: Hantele@1234!
+
+  redis:
+    host: 192.168.108.51
+    port: 6379
+
+logging:
+  level:
+    web: TRACE
+    org:
+      springframework:
+        web: TRACE
+
+---
+
+spring:
+  profiles: pro
+
+  datasource:
+    url: jdbc:mysql://192.168.213.66:3306/dsp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: root
+
+  redis:
+    host: 192.168.212.236
+    port: 26379
+    password: wM9oZn&33jgwp&O

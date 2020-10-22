@@ -1,0 +1,30 @@
+server:
+  port: 18086
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      routes:
+        - id: paas_tag
+          uri: lb://paas-tag
+          predicates:
+            - Path=/paas/tag/{phone}
+
+logging:
+  file:
+    max-size: 200MB
+    max-history: 30
+    total-size-cap: 10GB
+
+---
+
+spring:
+  profiles: dev
+
+---
+
+spring:
+  profiles: pro

@@ -1,0 +1,27 @@
+spring:
+  profiles:
+    active: dev
+
+---
+
+spring:
+  profiles: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.108.51:18848
+        file-extension: yaml
+      discovery:
+        server-addr: 192.168.108.51:18848
+
+---
+
+spring:
+  profiles: pro
+  cloud:
+    nacos:
+      config:
+        server-addr: 192.168.212.231:18848
+        file-extension: yaml
+      discovery:
+        server-addr: 192.168.212.231:18848

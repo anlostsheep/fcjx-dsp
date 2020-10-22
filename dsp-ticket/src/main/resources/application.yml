@@ -1,0 +1,77 @@
+server:
+  port: 18089
+
+  tomcat:
+    accept-count: 1000
+    connection-timeout: 30000
+    max-connections: 20000
+
+spring:
+  profiles:
+    active: dev
+
+  application:
+    name: dsp-ticket
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 30
+      minimum-idle: 3
+      max-lifetime: 60000
+      idle-timeout: 30000
+    schema: classpath:schema.sql
+
+  redis:
+    lettuce:
+      pool:
+        max-active: 35
+        max-wait: 60000
+        max-idle: 20
+        min-idle: 1
+      shutdown-timeout: 30000
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+
+logging:
+  file:
+    max-size: 200MB
+    max-history: 30
+    total-size-cap: 10GB
+
+---
+
+spring:
+  profiles: dev
+
+  datasource:
+    url: jdbc:mysql://192.168.108.51:3306/dsp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+    username: root
+    password: 123456
+
+  redis:
+    host: 192.168.108.51
+    port: 6379
+
+logging:
+  level:
+    web: TRACE
+    org:
+      springframework:
+        web: TRACE
+
+---
+
+spring:
+  profiles: pro
+
+  datasource:
+    url: jdbc:mysql://192.168.213.66:3306/dsp?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&autoReconnect=true&failOverReadOnly=false&useSSL=false
+    username: root
+    password: root
+
+  redis:
+    host: 192.168.212.236
+    port: 26379
+    password: wM9oZn&33jgwp&O

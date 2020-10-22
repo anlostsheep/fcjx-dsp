@@ -1,0 +1,19 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: dsp-advertisement
+
+---
+
+spring:
+  profiles: dev
+server:
+  port: 18088
+
+---
+
+spring:
+  profiles: pro
+server:
+  port: 18088
